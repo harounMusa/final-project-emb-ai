@@ -3,8 +3,10 @@ from EmotionDetection.emotion_detection import emotion_detector
 app = Flask(__name__)
 @app.route('/emotionDetector')
 def emotion_dec():
-    text = request.args.get('text', 'I love my life')
+    text = request.args.get('text') # , 'I love my life'
     res = emotion_detector(text)
+    if res['dominant_emotion'] == None:
+        return f'Invalid text! Please try again!'
     return (
         f"For the given statement, the system response is "
         f"anger: {res['anger']}, "
